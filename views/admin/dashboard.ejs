@@ -1,0 +1,68 @@
+<% include('../layouts/header.ejs') %>
+
+
+<div class="container">
+  <div class="row">
+    <div class="d-flex justify-content-center align-items-center">
+      <h1>Dashboard</h1>
+    </div>
+
+    <a href="/admin/new-user"><button class="btn btn-dark">Add new user</button></a>
+    <div class="d-flex justify-content-center align-items-center">
+      <a href="/admin/home">
+        <button type="button" class="btn btn-primary">Back to home</button>
+      </a>
+    </div>
+
+    <div>&nbsp;</div>
+    
+<form>
+  <input type="text"  placeholder="Search Username,email,Mobile" name="search">
+  <input type="submit" value="Search"  class="btn btn-primary">
+</form>
+    <div class="container">
+      <table class="table table-bordered table-striped table-hover">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Mobile</th>
+          <th>Action</th>
+        </tr>
+        <%
+        if(users.length > 0){
+          for(let i=0; i < users.length; i++){
+        %>
+        <tr>
+          <td><%= users[i].name %></td>
+          <td><%= users[i].email %></td>
+          <td><%= users[i].mobile %></td>
+          <td>
+            <a href="/admin/edit-user?id=<%= users[i]._id %>"><button class="btn btn-primary">Edit</button></a>
+            
+            <a href="/admin/delete-user?id=<%= users[i]._id %>" onclick="return confirm('Are you sure you want to delete <%= users[i].name %>')" 
+              class="btn btn-danger"> <i class="fa-solid fa-trash">Delete</i></a>
+          </td>
+        </tr>
+        
+        <%
+          }
+        } else {
+        %>
+        <tr>
+          <td colspan="3">NO USER FOUND</td>
+        </tr>
+        <%
+        }
+        %>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<% include('../layouts/footer.ejs') %>
